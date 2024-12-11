@@ -130,7 +130,7 @@ int main(int argc, char *argv[]) {
     for(int j = 0; j < MAX_DIR_ENTRIES; j++){
         //If the file we want to add already exist, exit
         if(det[j].status == DIR_ENTRY_NORMALFILE && strcmp(det[j].filename, filename) == 0){
-            fprintf(stderr, "File Is ALready On Disk!\n");
+            fprintf(stderr, "File Is Already On Disk!\n");
             exit(1);
         }
         else if(det[j].status == DIR_ENTRY_NORMALFILE){

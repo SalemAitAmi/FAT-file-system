@@ -1,31 +1,31 @@
 CC=gcc
 CFLAGS=-c -Wall -g -DDEBUG
 
-all: stat360fs ls360fs cat360fs stor360fs
+all: statFATfs lsFATfs catFATfs storFATfs
 
-stat360fs: stat360fs.o
-	$(CC) stat360fs.o -o stat360fs
+statFATfs: statFATfs.o
+	$(CC) statFATfs.o -o statFATfs
 
-stat360fs.o: stat360fs.c disk.h
-	$(CC) $(CFLAGS) stat360fs.c
+statFATfs.o: statFATfs.c disk.h
+	$(CC) $(CFLAGS) statFATfs.c
 
-ls360fs: ls360fs.o
-	$(CC) ls360fs.o -o ls360fs
+lsFATfs: lsFATfs.o
+	$(CC) lsFATfs.o -o lsFATfs
 
-ls360fs.o: ls360fs.c disk.h
-	$(CC) $(CFLAGS) ls360fs.c
+lsFATfs.o: lsFATfs.c disk.h
+	$(CC) $(CFLAGS) lsFATfs.c
 
-cat360fs: cat360fs.o
-	$(CC) cat360fs.o -o cat360fs
+catFATfs: catFATfs.o
+	$(CC) catFATfs.o -o catFATfs
 
-cat360fs.o: cat360fs.c disk.h
-	$(CC) $(CFLAGS) cat360fs.c
+catFATfs.o: catFATfs.c disk.h
+	$(CC) $(CFLAGS) catFATfs.c
 
-stor360fs: stor360fs.o
-	$(CC) stor360fs.o -o stor360fs
+storFATfs: storFATfs.o
+	$(CC) storFATfs.o -o storFATfs
 
-stor360fs.o: stor360fs.c disk.h
-	$(CC) $(CFLAGS) stor360fs.c
+storFATfs.o: storFATfs.c disk.h
+	$(CC) $(CFLAGS) storFATfs.c
 
 clean:
-	rm -rf *.o stat360fs ls360fs cat360fs stor360fs
+	rm -rf *.o statFATfs lsFATfs catFATfs storFATfs
