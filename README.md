@@ -76,7 +76,6 @@ The superblock is the first area and is reserved for critical file-system metada
 | block where root directory starts | 4 bytes | 0x00000030 |
 |# of blocks in root directory | 4 bytes | 0x00000010 |
 
-<br />
 
 #### Root Directory Entries
 
@@ -97,14 +96,13 @@ Each directory entry is 64 bytes in size, and the maximum number of these entrie
 |filename| 31 bytes|
 |unused| set to 0xff| 6 bytes|
 
-- **status**:  bit mask describing the status of the file. Only three bits are used. Bit 0 (i.e., least significant bit) is false if the entry is available, true otherwise. Bit 1 is set to true if the entry is for a normal file; bit 2 is set to true if the entry is for a directory. Therefore bits 1 and 2 cannot both be set to true (i.e., an entry is either a normal file or it is a directory but not both).
-- **starting block**: The block in the disk image that is the first block of the file corresponding to the directory entry.
-- **\# of blocks in file**: Total number of blocks in the file 
-- **file size**: In bytes. Note that file size must be less than or equal to the # of blocks in file * file-system blocksize.
-- **create time, modify time**: Data and time when the file was created / modified.
-- **filename**: a null-terminated string (i.e., the largest file-name length is 30 chars). Characters accepted in filenames are alphabetic (upper- and lower-case), digits (0-9) and the underscore character (i.e., [a-zA-Z0-9_]).
+- **status:**  bit mask describing the status of the file. Only three bits are used. Bit 0 (i.e., least significant bit) is false if the entry is available, true otherwise. Bit 1 is set to true if the entry is for a normal file; bit 2 is set to true if the entry is for a directory. Therefore bits 1 and 2 cannot both be set to true (i.e., an entry is either a normal file or it is a directory but not both).
+- **starting block:** The block in the disk image that is the first block of the file corresponding to the directory entry.
+- **\# of blocks in file:** Total number of blocks in the file 
+- **file size:** In bytes. Note that file size must be less than or equal to the # of blocks in file * file-system blocksize.
+- **create time, modify time:** Data and time when the file was created / modified.
+- **filename:** a null-terminated string (i.e., the largest file-name length is 30 chars). Characters accepted in filenames are alphabetic (upper- and lower-case), digits (0-9) and the underscore character (i.e., [a-zA-Z0-9_]).
 
-<br />
 
 #### File Allocation Table
 
@@ -125,7 +123,6 @@ FAT entries may contain the following values indicating the status of its corres
 |0x00000002 – 0xffffff00|This file-system block is allocated to some file|
 |0xffffffff|This is the last block in a file|
 
-<br />
 
 #### Data Blocks
 
@@ -198,12 +195,24 @@ $ # no output from diff -- that’s good as it means the files are identical
 <!-- DISCUSSION -->
 ## Discussion
 
+This project successfully demonstrates the implementation of a basic FAT file system, providing essential functionality for managing files. The use of familiar command names (`stat`, `ls`, `cat`) makes the functionality intuitive to users with Unix-like system experience. The `stor` command adds valuable functionality by allowing users to add files to the FAT image from the host system, expanding the utility of the file system. The project showcases a thorough understanding of file system concepts such as the superblock, FAT, and directory entries. The ability to parse metadata, handle endian conversion, and manage file allocation within a disk image are key strengths of this implementation.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- LIMITATIONS & POTENTIAL IMPROVEMENTS -->
 ## Limitations and Potential Improvements
 
+Despite its strengths, there are several limitations and areas for potential improvement in this FAT file system implementation:
+
+- **Scalability:** The current implementation may not scale well with larger disk images or a higher number of files due to the fixed size of the directory entry table. Future improvements could include dynamic directory management or support for larger directory tables.
+
+- **Error Handling:** While the code includes basic error handling, more comprehensive error messages and recovery mechanisms could be implemented. For example, providing more detailed error information when a file operation fails would improve user experience.
+
+- **Performance Optimization:** The current implementation reads and writes data block by block, which may not be optimal for performance. Implementing buffering techniques or optimizing file I/O operations could enhance performance, especially for large files.
+
+- **File System Integrity:** The implementation could be enhanced by adding features to check and repair file system integrity. For example, adding a fsck-like command to detect and fix inconsistencies in the file system would be beneficial.
+
+- **Advanced Features:** Adding support for advanced file system features such as subdirectories, symbolic links, and file permissions would make the FAT file system more versatile and closer to real-world file systems.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
